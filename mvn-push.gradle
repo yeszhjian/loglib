@@ -1,0 +1,113 @@
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+def isReleaseBuild() {
+    return VERSION_NAME.contains("SNAPSHOT") == false
+}
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                //beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+                configurePOM(pom)
+                repository(url: MAVEN_REPO_RELEASE_URL) {
+                    authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+                }
+                snapshotRepository(url: MAVEN_REPO_SNAPSHOT_URL) {
+                    authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+                }
+            }
+        }
+    }
+
+    // 进行数字签名
+    signing {
+        // 当 发布版本 & 存在"uploadArchives"任务时，才执行
+        required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+        sign configurations.archives
+    }
+
+    // type显示指定任务类型或任务, 这里指定要执行Javadoc这个task,这个task在gradle中已经定义
+    task androidJavadocs(type: Javadoc) {
+        failOnError false
+        source = android.sourceSets.main.java.source
+        options {
+            links "http://docs.oracle.com/javase/7/docs/api/"
+            linksOffline "http://d.android.com/reference", "${android.sdkDirectory}/docs/reference"
+        }
+        classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+
+    // 生成javadoc.jar
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+        classifier = 'javadoc'
+        from androidJavadocs.destinationDir
+    }
+
+    // 生成sources.jar
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task apklib(type: Zip) {
+        appendix = extension = 'apklib'
+        from 'AndroidManifest.xml'
+        into('res') {
+            from 'res'
+        }
+        into('src') {
+            from 'src'
+        }
+    }
+
+    // 产生相关配置文件的任务
+    artifacts {
+        archives androidSourcesJar
+        archives androidJavadocsJar
+        archives apklib
+    }
+}
+
+private configurePOM(def pom) {
+    pom.project {
+        groupId POM_GROUP_ID
+        artifactId POM_ARTIFACT_ID
+        version VERSION_NAME
+        name POM_NAME
+        packaging POM_PACKAGING
+        description POM_DESCRIPTION
+        url POM_URL
+        inceptionYear POM_INCEPTION_YEAR
+
+//        scm {
+//            url POM_SCM_URL
+//            connection POM_SCM_CONNECTION
+//            developerConnection POM_SCM_DEV_CONNECTION
+//        }
+
+//        licenses {
+//            license {
+//                name POM_LICENCE_NAME
+//                url POM_LICENCE_URL
+//                distribution POM_LICENCE_DIST
+//                comments POM_LICENCE_COMMENTS
+//            }
+//        }
+
+//        developers {
+//            developer {
+//                id POM_DEVELOPER_ID
+//                name POM_DEVELOPER_NAME
+//                email POM_DEVELOPER_EMAIL
+//                url POM_DEVELOPER_URL
+//            }
+//        }
+
+//        issueManagement {
+//            system POM_ISSUE_MANAGEMENT_SYSTEM
+//            url POM_ISSUE_MANAGEMENT_URL
+//        }
+    }
+}

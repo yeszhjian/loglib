@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android.ANDROID_COMPILE_SDK_VERSION
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.ANDROID_MIN_SDK_VERSION
+        targetSdkVersion rootProject.ext.android.ANDROID_TARGET_SDK_VERSION
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        qa {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            matchingFallbacks = ['release', 'debug']
+        }
+        uat {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            matchingFallbacks = ['release', 'debug']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+
+}
+
+dependencies {
+//    api project(':dzcxapi')
+//    api project(':servicelib')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    testImplementation 'junit:junit:4.12'
+    //noinspection GradleCompatible
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    api 'com.alibaba:fastjson:1.2.8'
+    implementation 'com.android.support:recyclerview-v7:25.3.1'
+    // okhttp
+    implementation rootProject.ext.dependencies["okio"]
+    implementation rootProject.ext.dependencies["gson"]
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["okhttp-logging"]
+
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit-gson"]
+    implementation rootProject.ext.dependencies["retrofit-rxjava2"]
+}
+
