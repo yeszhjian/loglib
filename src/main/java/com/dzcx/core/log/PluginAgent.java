@@ -88,7 +88,6 @@ public class PluginAgent {
         Request  request  = chain.request();
         MsgModel model = HttpLogUtils.createRequestMsg(request);
         long requestId = model.getId();
-        LogMsgManager.getInstance().addLogMsg(model);
         try {
             response = chain.proceed(request);
             HttpLogUtils.createAndAddResponceMsg(response, requestId);
