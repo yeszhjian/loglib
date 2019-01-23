@@ -275,7 +275,7 @@ public class Tracker {
             builder.append("\"}");
             String s = builder.toString();
             model.setMsg(s);
-            Log.d(TAG, "点击事件日志： " + builder.toString());
+//            Log.d(TAG, "点击事件日志： " + builder.toString());
             LogMsgManager.getInstance().addLogMsg(model);
         }
     }
@@ -297,7 +297,7 @@ public class Tracker {
         builder.append("\"}");
         String s = builder.toString();
         model.setMsg(s);
-        Log.d(TAG, "生命周期日志： " + builder.toString());
+//        Log.d(TAG, "生命周期日志： " + builder.toString());
         LogMsgManager.getInstance().addLogMsg(model);
     }
 
@@ -341,7 +341,7 @@ public class Tracker {
         sb.append("}}");
         msgModel.setMsg(sb.toString());
         if (!tempData.equals(sb.toString())) {
-            Log.d(TAG, "广播日志： " + msg);
+//            Log.d(TAG, "广播日志： " + msg);
             tempData = sb.toString();
             LogMsgManager.getInstance().addLogMsg(msgModel);
         }
@@ -351,7 +351,7 @@ public class Tracker {
      * 推送数据日志收集
      */
     public void trackPushData(String msg) {
-        Log.d(TAG, "推送日志： " + msg);
+//        Log.d(TAG, "推送日志： " + msg);
         MsgModel model = new MsgModel();
         model.setType(EventType.TYPE_PUSH_INT);
         StringBuilder builder = new StringBuilder();

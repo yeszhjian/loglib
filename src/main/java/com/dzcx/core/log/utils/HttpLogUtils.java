@@ -14,6 +14,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.internal.http.HttpHeaders;
+import okio.Buffer;
 import okio.BufferedSource;
 
 /**
@@ -46,7 +47,7 @@ public class HttpLogUtils {
         MsgModel model = new MsgModel();
         model.setType(EventType.TYPE_REQUEST_INT);
         RequestBody body   = request.body();
-        okio.Buffer buffer = new okio.Buffer();
+        Buffer buffer = new Buffer();
         try {
             body.writeTo(buffer);
             String formatRequest = getFormatRequest(url, buffer.readString(Charset.forName("UTF-8")));

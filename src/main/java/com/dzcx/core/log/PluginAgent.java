@@ -44,6 +44,7 @@ import okhttp3.Response;
 public class PluginAgent {
 
     public static HashMap<Integer, Pair<Integer, String>> sAliveFragMap = new HashMap<>();
+    private static long requestId = 0;
 
     private Activity getActivity(View view) {
         if (null != view) {
@@ -83,13 +84,13 @@ public class PluginAgent {
         Tracker.instance().trackLifecycle(obj.toString(), "onDestory()");
     }
 
-    public static void onIntercept(Interceptor.Chain chain) {
-        Response response = null;
-        Request  request  = chain.request();
+    public static void onIntercept(Request request) {
         MsgModel model = HttpLogUtils.createRequestMsg(request);
-        long requestId = model.getId();
+        requestId = model.getId();
+    }
+
+    public static void onIntercept(Response response) {
         try {
-            response = chain.proceed(request);
             HttpLogUtils.createAndAddResponceMsg(response, requestId);
         } catch (Exception e) {
         }
