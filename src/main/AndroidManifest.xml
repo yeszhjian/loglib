@@ -22,93 +22,93 @@
         <!--android:permission="android.permission.BIND_JOB_SERVICE"/>-->
 
         <!--阿里推送配置-->
-        <service
-            android:name="com.alibaba.sdk.android.push.channel.CheckService"
-            android:process=":channel">
-            <intent-filter>
-                <action android:name="com.alibaba.sdk.android.push.CHECK_SERVICE" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="com.taobao.accs.internal.AccsJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":channel" />
-        <!-- V3.0.7及以上版本需配置 -->
-        <service
-            android:name="com.alibaba.sdk.android.push.channel.KeepChannelService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":channel" />
-        <receiver
-            android:name="com.alibaba.sdk.android.push.SystemEventReceiver"
-            android:process=":channel">
-            <intent-filter>
-                <action android:name="android.intent.action.MEDIA_MOUNTED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-            </intent-filter>
-        </receiver>
-        <!-- V3.0.9及以上版本需配置 -->
-        <activity
-            android:name="com.alibaba.sdk.android.push.keeplive.PushExtActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
-            android:excludeFromRecents="true"
-            android:exported="false"
-            android:finishOnTaskLaunch="false"
-            android:launchMode="singleInstance"
-            android:process=":channel"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
-        <!--阿里推送结束-->
+        <!--<service-->
+            <!--android:name="com.alibaba.sdk.android.push.channel.CheckService"-->
+            <!--android:process=":channel">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.alibaba.sdk.android.push.CHECK_SERVICE" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+        <!--<service-->
+            <!--android:name="com.taobao.accs.internal.AccsJobService"-->
+            <!--android:permission="android.permission.BIND_JOB_SERVICE"-->
+            <!--android:process=":channel" />-->
+        <!--&lt;!&ndash; V3.0.7及以上版本需配置 &ndash;&gt;-->
+        <!--<service-->
+            <!--android:name="com.alibaba.sdk.android.push.channel.KeepChannelService"-->
+            <!--android:permission="android.permission.BIND_JOB_SERVICE"-->
+            <!--android:process=":channel" />-->
+        <!--<receiver-->
+            <!--android:name="com.alibaba.sdk.android.push.SystemEventReceiver"-->
+            <!--android:process=":channel">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MEDIA_MOUNTED" />-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_CONNECTED" />-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--&lt;!&ndash; V3.0.9及以上版本需配置 &ndash;&gt;-->
+        <!--<activity-->
+            <!--android:name="com.alibaba.sdk.android.push.keeplive.PushExtActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"-->
+            <!--android:excludeFromRecents="true"-->
+            <!--android:exported="false"-->
+            <!--android:finishOnTaskLaunch="false"-->
+            <!--android:launchMode="singleInstance"-->
+            <!--android:process=":channel"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />-->
+        <!--&lt;!&ndash;阿里推送结束&ndash;&gt;-->
 
-        <!--极光推送配置-->
-        <service
-            android:name="cn.jpush.android.service.PushService"
-            android:process=":pushcore"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTER" />
-                <action android:name="cn.jpush.android.intent.REPORT" />
-                <action android:name="cn.jpush.android.intent.PushService" />
-                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
-            </intent-filter>
-        </service>
-        <!-- since 3.0.9 Required SDK 核心功能-->
-        <provider
-            android:authorities="dazhongchuxing.dzcx_android_auto.DataProvider"
-            android:name="cn.jpush.android.service.DataProvider"
-            android:process=":pushcore"
-            android:exported="false" />
-        <service
-            android:name="cn.jpush.android.service.DaemonService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="cn.jpush.android.intent.DaemonService" />
-                <category android:name="dazhongchuxing.dzcx_android_auto" />
-            </intent-filter>
-        </service>
-        <!-- since 3.1.0 Required SDK 核心功能-->
-        <provider
-            android:authorities="dazhongchuxing.dzcx_android_auto.DownloadProvider"
-            android:name="cn.jpush.android.service.DownloadProvider"
-            android:exported="true" />
-        <!-- Required SDK核心功能-->
-        <receiver
-            android:name="cn.jpush.android.service.PushReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <!-- Optional -->
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-                <data android:scheme="dazhongchuxing.dzcx_android_auto" />
-            </intent-filter>
-        </receiver>
-        <!-- Required SDK核心功能-->
-        <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
+        <!--&lt;!&ndash;极光推送配置&ndash;&gt;-->
+        <!--<service-->
+            <!--android:name="cn.jpush.android.service.PushService"-->
+            <!--android:process=":pushcore"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="cn.jpush.android.intent.REGISTER" />-->
+                <!--<action android:name="cn.jpush.android.intent.REPORT" />-->
+                <!--<action android:name="cn.jpush.android.intent.PushService" />-->
+                <!--<action android:name="cn.jpush.android.intent.PUSH_TIME" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+        <!--&lt;!&ndash; since 3.0.9 Required SDK 核心功能&ndash;&gt;-->
+        <!--<provider-->
+            <!--android:authorities="dazhongchuxing.dzcx_android_auto.DataProvider"-->
+            <!--android:name="cn.jpush.android.service.DataProvider"-->
+            <!--android:process=":pushcore"-->
+            <!--android:exported="false" />-->
+        <!--<service-->
+            <!--android:name="cn.jpush.android.service.DaemonService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="cn.jpush.android.intent.DaemonService" />-->
+                <!--<category android:name="dazhongchuxing.dzcx_android_auto" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+        <!--&lt;!&ndash; since 3.1.0 Required SDK 核心功能&ndash;&gt;-->
+        <!--<provider-->
+            <!--android:authorities="dazhongchuxing.dzcx_android_auto.DownloadProvider"-->
+            <!--android:name="cn.jpush.android.service.DownloadProvider"-->
+            <!--android:exported="true" />-->
+        <!--&lt;!&ndash; Required SDK核心功能&ndash;&gt;-->
+        <!--<receiver-->
+            <!--android:name="cn.jpush.android.service.PushReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="false">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+            <!--</intent-filter>-->
+            <!--&lt;!&ndash; Optional &ndash;&gt;-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.PACKAGE_ADDED" />-->
+                <!--<action android:name="android.intent.action.PACKAGE_REMOVED" />-->
+                <!--<data android:scheme="dazhongchuxing.dzcx_android_auto" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--&lt;!&ndash; Required SDK核心功能&ndash;&gt;-->
+        <!--<receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>-->
         <!--极光推送结束-->
 
     </application>

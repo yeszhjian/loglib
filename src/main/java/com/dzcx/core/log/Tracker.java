@@ -18,6 +18,7 @@ import com.dzcx.core.log.loginterface.AppProxy;
 import com.dzcx.core.log.protect.ProtectManager;
 import com.dzcx.core.log.protect.ProtectModel;
 import com.dzcx.core.log.utils.CrashHandler;
+import com.dzcx.core.log.utils.DZCXLogUtils;
 import com.dzcx.core.log.utils.HookUtils;
 import com.dzcx.core.log.utils.IOUtil;
 import com.dzcx.core.log.utils.SystemUtils;
@@ -112,6 +113,10 @@ public class Tracker {
 
     public Map<String, Object> getConfigureMap() {
         return mConfigureMap;
+    }
+
+    public void setISDEBUG(boolean ISDEBUG) {
+        DZCXLogUtils.getInstance().setISDEBUG(ISDEBUG);
     }
 
     /**
@@ -262,7 +267,7 @@ public class Tracker {
             Iterator<Map.Entry<String, Object>> iterator = attributes.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry<String, Object> entry = iterator.next();
-                Log.d(TAG, "attributes@" + entry.getKey() + " = " + entry.getValue());
+                DZCXLogUtils.getInstance().logInfo(TAG, "attributes@" + entry.getKey() + " = " + entry.getValue());
             }
         } else {
             MsgModel model = new MsgModel();
@@ -275,7 +280,7 @@ public class Tracker {
             builder.append("\"}");
             String s = builder.toString();
             model.setMsg(s);
-//            Log.d(TAG, "点击事件日志： " + builder.toString());
+            DZCXLogUtils.getInstance().logInfo(TAG, "点击事件日志： " + builder.toString());
             LogMsgManager.getInstance().addLogMsg(model);
         }
     }
@@ -297,7 +302,7 @@ public class Tracker {
         builder.append("\"}");
         String s = builder.toString();
         model.setMsg(s);
-//        Log.d(TAG, "生命周期日志： " + builder.toString());
+        DZCXLogUtils.getInstance().logInfo(TAG, "生命周期日志： " + builder.toString());
         LogMsgManager.getInstance().addLogMsg(model);
     }
 
@@ -307,7 +312,7 @@ public class Tracker {
      * @param model
      */
     public void trackHttpData(MsgModel model) {
-//        Log.d(TAG, "网络日志： " + model.getMsg());
+        DZCXLogUtils.getInstance().logInfo(TAG, "网络日志： " + model.getMsg());
         LogMsgManager.getInstance().addLogMsg(model);
     }
 
@@ -317,7 +322,7 @@ public class Tracker {
      * @param msg
      */
     public void trackApiExceptionData(String msg) {
-//        Log.d(TAG, "网络链接错误日志： " + msg);
+        DZCXLogUtils.getInstance().logInfo(TAG, "网络链接错误日志： " + msg);
         MsgModel msgModel = new MsgModel();
         msgModel.setType(EventType.TYPE_NET_ERROR);
         StringBuilder builder = new StringBuilder();
@@ -345,13 +350,14 @@ public class Tracker {
             tempData = sb.toString();
             LogMsgManager.getInstance().addLogMsg(msgModel);
         }
+        DZCXLogUtils.getInstance().logInfo(TAG, "广播日志： " + msg);
     }
 
     /**
      * 推送数据日志收集
      */
     public void trackPushData(String msg) {
-//        Log.d(TAG, "推送日志： " + msg);
+        DZCXLogUtils.getInstance().logInfo(TAG, "推送日志： " + msg);
         MsgModel model = new MsgModel();
         model.setType(EventType.TYPE_PUSH_INT);
         StringBuilder builder = new StringBuilder();
@@ -370,7 +376,7 @@ public class Tracker {
      * @param jsonObject
      */
     public void trackPushUpload(JSONObject jsonObject) {
-        Log.d(TAG, "开始上传文件：-bbbbbbbbbbbbbbbb");
+        DZCXLogUtils.getInstance().logInfo(TAG, "开始上传文件：-bbbbbbbbbbbbbbbb");
         String  date  = jsonObject.getString("pushDate");
         boolean useDB = jsonObject.getBoolean("useDb");
         String  id    = jsonObject.getString("id");
@@ -381,7 +387,7 @@ public class Tracker {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             formatDate = format.format(new Date(date));
         }
-        Log.i(TAG, "开始上传文件：-cccccccccccccccccccc");
+        DZCXLogUtils.getInstance().logInfo(TAG, "开始上传文件：-cccccccccccccccccccc");
         Intent intent = new Intent(mContext, LogService.class);
         intent.putExtra(Constants.ACTION_PARAM_USE_DB, useDB);
         intent.putExtra(Constants.ACTION_PARAM_TIME, formatDate);

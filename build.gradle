@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-//    api project(':dzcxapi')
+    api project(':dzcxapi')
 //    api project(':servicelib')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
