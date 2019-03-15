@@ -3,7 +3,6 @@
 
 # 日志库使用方式，在application加这段代码
 
-{
 Tracker.init(this.getApplicationContext(), new AppProxy() {
 
             @Override
@@ -27,5 +26,4 @@ Tracker.init(this.getApplicationContext(), new AppProxy() {
         });
         //是否打印日志
         Tracker.instance().setISDEBUG(true);
-}
 
