@@ -94,7 +94,7 @@ public class Tracker {
         }
     }
 
-    public void init(Context context, AppProxy appProxy, ArrayList<ProtectModel> protectList) {
+    public static void init(Context context, AppProxy appProxy, ArrayList<ProtectModel> protectList) {
         if (mTracker == null) {
             synchronized (Tracker.class) {
                 if (mTracker == null) {

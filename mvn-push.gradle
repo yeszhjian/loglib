@@ -80,34 +80,5 @@ private configurePOM(def pom) {
         description POM_DESCRIPTION
         url POM_URL
         inceptionYear POM_INCEPTION_YEAR
-
-//        scm {
-//            url POM_SCM_URL
-//            connection POM_SCM_CONNECTION
-//            developerConnection POM_SCM_DEV_CONNECTION
-//        }
-
-//        licenses {
-//            license {
-//                name POM_LICENCE_NAME
-//                url POM_LICENCE_URL
-//                distribution POM_LICENCE_DIST
-//                comments POM_LICENCE_COMMENTS
-//            }
-//        }
-
-//        developers {
-//            developer {
-//                id POM_DEVELOPER_ID
-//                name POM_DEVELOPER_NAME
-//                email POM_DEVELOPER_EMAIL
-//                url POM_DEVELOPER_URL
-//            }
-//        }
-
-//        issueManagement {
-//            system POM_ISSUE_MANAGEMENT_SYSTEM
-//            url POM_ISSUE_MANAGEMENT_URL
-//        }
     }
 }
